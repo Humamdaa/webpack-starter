@@ -1,39 +1,53 @@
-# Dependency Review Action
-#
-# This Action will scan dependency manifest files that change as part of a Pull Request,
-# surfacing known-vulnerable versions of the packages declared or updated in the PR.
-# Once installed, if the workflow run is marked as required, PRs introducing known-vulnerable
-# packages will be blocked from merging.
-#
-# Source repository: https://github.com/actions/dependency-review-action
-# Public documentation: https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-dependency-review#dependency-review-enforcement
-name: 'Dependency review'
+name: 'Dependency Review'
+
 on:
   pull_request:
-    branches: [ "main", "devel"]
+    branches:
+      - "main"
+      - "devel"
 
-# If using a dependency submission action in this workflow this permission will need to be set to:
-#
-# permissions:
-#   contents: write
-#
-# https://docs.github.com/en/enterprise-cloud@latest/code-security/supply-chain-security/understanding-your-software-supply-chain/using-the-dependency-submission-api
 permissions:
-  contents: read
-  # Write permissions for pull-requests are required for using the `comment-summary-in-pr` option, comment out if you aren't using this option
-  pull-requests: write
+  contents: read  # Read access to contents is enough for dependency review.
+  pull-requests: write  # Write permissions for commenting on PRs.
 
 jobs:
   dependency-review:
     runs-on: ubuntu-latest
+
     steps:
       - name: 'Checkout repository'
         uses: actions/checkout@v4
-      - name: 'Dependency Review'
+
+      - name: 'Run Dependency Review'
         uses: actions/dependency-review-action@v4
-        # Commonly enabled options, see https://github.com/actions/dependency-review-action#configuration-options for all available options.
         with:
+          # Ensures a comment with the dependency review summary is always posted on the PR.
           comment-summary-in-pr: always
-        #   fail-on-severity: moderate
-        #   deny-licenses: GPL-1.0-or-later, LGPL-2.0-or-later
-        #   retry-on-snapshot-warnings: true
+          
+          # Uncomment to fail the workflow on a certain severity level of dependencies.
+          # fail-on-severity: moderate  # Uncomment to fail on moderate or worse severity issues.
+
+          # Define licenses to deny if they are detected in any dependencies.
+          # deny-licenses: GPL-1.0-or-later, LGPL-2.0-or-later
+          
+          # Uncomment to retry if there are warnings regarding snapshot dependencies.
+          # retry-on-snapshot-warnings: true
+
+          # Optionally, configure the output format to match your requirements.
+          # output-format: json  # Available: json, markdown (default)
+
+          # Optional: Exclude specific dependencies from being reviewed (by name).
+          # exclude-dependencies: "dependency-name-1, dependency-name-2"
+          
+          # Enable the action to track changes in the dependencies and alert when dependencies are outdated.
+          # track-dependencies-changes: true
+
+          # Allow you to set custom configurations such as the GitHub token used for PR comments.
+          # token: ${{ secrets.GITHUB_TOKEN }}
+          
+          # You can also set a custom GitHub user to post comments with the dependency review information.
+          # user: "github-username"
+
+      # Additional step: You can add other tasks here if needed, e.g., for testing, notification, etc.
+      # - name: Run Tests
+      #   run: npm test
