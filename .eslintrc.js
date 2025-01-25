@@ -20,7 +20,7 @@
     "@babel"
   ],
   "rules": {
-    "react/react-in-jsx-scope": "off",  // if you're using React 17+ and JSX Transform
+    "react/react-in-jsx-scope": "off",
     "no-console": "warn",
     "no-unused-vars": "warn",
     "semi": ["error", "always"],
