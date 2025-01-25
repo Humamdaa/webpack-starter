@@ -12,7 +12,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "[name][contenthash].js",
     clean: true,
-    assetModuleFilename: "assets/[name].[hash][ext][query]", // Output path for images
+    assetModuleFilename: "assets/[name].[ext]",
   },
   devtool: "source-map",
   devServer: {
@@ -20,6 +20,7 @@ module.exports = {
       directory: path.resolve(__dirname, "dist"),
     },
     port: 3000,
+    // TODO: false
     open: true,
     hot: true,
     compress: true,
@@ -27,10 +28,17 @@ module.exports = {
   },
   module: {
     rules: [
+      /* Images Loader */
       {
-        test: /\.scss$/,
+          test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
+          type: 'asset/resource',
+      },
+      /* Style Sheet Loader*/
+      {
+        test: /\.(css|scss)$/,
         use: ["style-loader", "css-loader", "sass-loader"],
       },
+      /* NodeJS Loader*/
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -41,17 +49,29 @@ module.exports = {
           },
         },
       },
+      /* File Loader */
       {
-        test: /\.(jpg|jpeg|png|gif|svg)$/i,
-        type: "asset/resource",
-      },
+        test: /\.glb$/,
+        use:
+        [
+            {
+                loader: 'file-loader',
+                options:
+                {
+                    outputPath: 'assets/resource/'
+                }
+            }
+        ]
+    },
+    
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: "Webpack-App",
+      title: "Webpack-Template-App",
+      favicon: "./src/assets/favicon.ico",
       filename: "index.html",
-      template: "src/template.html",
+      template: "public/template.html",
     }),
     new BundleAnalyzerPlugin()
   ],
