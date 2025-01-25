@@ -1,5 +1,58 @@
-/node_modules
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# Build output
-/dist
-/build
+# Dependency directories
+node_modules
+
+# Build output directories
+dist/
+dist-ssr/
+coverage/
+*.local
+
+# Cypress output
+/cypress/videos/
+/cypress/screenshots/
+
+# Editor directories and files
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.tsbuildinfo
+
+# Temp and test files
+/test/js/
+/test/browsertest/js/
+/test/fixtures/temp-*/
+/test/temp/
+/test/ChangesAndRemovals/
+/test/**/dev-defaults.webpack.lock
+/benchmark/js/
+/benchmark/fixtures/
+/examples/**/dist/
+/assembly/**/*.wat
+/assembly/**/*.wasm
+
+# Cache and temporary files
+.cache/
+.eslintcache
+.cspellcache
+.nyc_output/
+.jest-cache/
+.DS_Store
+
+# Lock files (optional, keep if using strict package locking)
+/package-lock.json
+/yarn.lock
+/pnpm-lock.yaml
