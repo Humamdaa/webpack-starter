@@ -1,6 +1,6 @@
 {
-  "name": "webpack",
-  "version": "1.0.0",
+  "name": "webpack_template",
+  "version": "0.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,22 +9,25 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "LGPL2",
   "devDependencies": {
+    // Babel
     "@babel/core": "^7.26.0",
     "@babel/preset-env": "^7.26.0",
     "babel-loader": "^9.2.1",
-    "css-loader": "^7.1.2",
+    // HTML / CSS / SCSS
     "html-webpack-plugin": "^5.6.3",
     "sass": "^1.83.4",
     "sass-loader": "^16.0.4",
     "style-loader": "^4.0.0",
+    "css-loader": "^7.1.2",
+    // WebPack
     "webpack": "^5.97.1",
     "webpack-bundle-analyzer": "^4.10.2",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.0"
   },
   "dependencies": {
-    "axios": "^1.7.9"
+    
   }
 }
