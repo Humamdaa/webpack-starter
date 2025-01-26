@@ -64,6 +64,9 @@ module.exports = {
     
     ],
   },
+  resolve: {
+    extensions: [".js", ".scss"],
+  },
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Webpack-Template-App',
