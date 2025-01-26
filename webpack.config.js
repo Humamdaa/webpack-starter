@@ -1,26 +1,24 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-// const BundleAnalyzerPlugin = require("webpack-bundle-analyzer"
-//   .BundleAnalyzerPlugin);
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: "development",
+  mode: 'development',
   entry: {
-    bundle: path.resolve(__dirname, "src/index.js"),
+    bundle: path.resolve(__dirname, 'src/index.js'),
   },
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "[name][contenthash].js",
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name][contenthash].js',
     clean: true,
-    assetModuleFilename: "assets/[name].[hash][ext][query]", // Output path for images
+    assetModuleFilename: 'assets/[name].[ext]',
   },
-  devtool: "source-map",
+  devtool: 'source-map',
   devServer: {
     static: {
-      directory: path.resolve(__dirname, "dist"),
+      directory: path.resolve(__dirname, 'dist'),
     },
     port: 3000,
+    // TODO: false
     open: true,
     hot: true,
     compress: true,
@@ -28,24 +26,42 @@ module.exports = {
   },
   module: {
     rules: [
+      /* Images Loader */
       {
-        test: /\.scss$/,
-        use: ["style-loader", "css-loader", "sass-loader"],
+          test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
+          type: 'asset/resource',
       },
+      /* Style Sheet Loader*/
+      {
+        test: /\.(css|scss)$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+      /* NodeJS Loader*/
       {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
-            presets: ["@babel/preset-env"],
+            presets: ['@babel/preset-env'],
           },
         },
       },
+      /* File Loader */
       {
-        test: /\.(jpg|jpeg|png|gif|svg)$/i,
-        type: "asset/resource",
-      },
+        test: /\.glb$/,
+        use:
+        [
+            {
+                loader: 'file-loader',
+                options:
+                {
+                    outputPath: 'assets/resource/'
+                }
+            }
+        ]
+    },
+    
     ],
   },
   resolve: {
@@ -53,10 +69,10 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: "Webpack-App",
-      filename: "index.html",
-      template: "src/template.html",
-    }),
-    // new BundleAnalyzerPlugin(),
+      title: 'Webpack-Template-App',
+      favicon: './src/assets/favicon.ico',
+      filename: 'index.html',
+      template: 'public/template.html',
+    })
   ],
 };
