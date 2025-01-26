@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+
 module.exports = {
   mode: 'development',
   entry: {
@@ -63,6 +64,9 @@ module.exports = {
     },
     
     ],
+  },
+  resolve: {
+    extensions: [".js", ".scss"],
   },
   plugins: [
     new HtmlWebpackPlugin({
