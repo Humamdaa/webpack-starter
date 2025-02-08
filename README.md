@@ -5,11 +5,12 @@
 This is a template to be used in many future projects
 
 ## Install
-’’’sh
+
+```sh
 npm i
 npm run build
 npm run dev
-’’’
+```
 
 ## How to use
 
